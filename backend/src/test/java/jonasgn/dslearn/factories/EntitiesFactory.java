@@ -3,6 +3,7 @@ package jonasgn.dslearn.factories;
 import java.time.Instant;
 
 import jonasgn.dslearn.entities.Course;
+import jonasgn.dslearn.entities.Enrollment;
 import jonasgn.dslearn.entities.Offer;
 import jonasgn.dslearn.entities.Resource;
 import jonasgn.dslearn.entities.Role;
@@ -35,5 +36,9 @@ public class EntitiesFactory {
 
 	public static Section createSection() {
 		return new Section(1L, "title", "description", 1, "igm_uri", new Section(), createResource());
+	}
+
+	public static Enrollment createEnrollment() {
+		return new Enrollment(createUser(), createOffer(), Instant.now(), Instant.now().plusSeconds(3600), true, false);
 	}
 }
