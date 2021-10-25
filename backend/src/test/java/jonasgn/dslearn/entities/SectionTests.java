@@ -13,8 +13,9 @@ import jonasgn.dslearn.factories.EntitiesFactory;
 @DisplayName("Section entity tests")
 public class SectionTests {
 
-	private Section section = EntitiesFactory.createSection();
 	private Resource resource = EntitiesFactory.createResource();
+	private Section section = EntitiesFactory.createSection();
+	private Section expected = new Section(0L, "foo", "bar", 0, "foo", new Section(), resource);
 
 	@Test
 	public void emptyConstructorShouldSetAllPropertiesToNull() {
@@ -31,81 +32,61 @@ public class SectionTests {
 
 	@Test
 	public void argsConstructorShouldSetAllProperties() {
-		final long id = 3L;
-		final String title = "foo";
-		final String description = "bar";
-		final int position = 2;
-		final String imgUri = "uri";
+		final Section s = expected;
+		final Section section = new Section(s.getId(), s.getTitle(), s.getDescription(), s.getPosition(), s.getImgUri(),
+				s.getPrerequisite(), s.getResource());
 
-		final Section section = new Section(id, title, description, position, imgUri, this.section, resource);
-
-		assertEquals(id, section.getId());
-		assertEquals(description, section.getDescription());
-		assertEquals(imgUri, section.getImgUri());
-		assertEquals(position, section.getPosition());
-		assertEquals(this.section, section.getPrerequisite());
-		assertEquals(resource, section.getResource());
-		assertEquals(title, section.getTitle());
+		compareProperties(s, section);
 	}
 
 	@Test
 	public void sectionsShouldBeTheSameWhenIdIsEqual() {
-		final Section section = new Section(1L, null, null, null, null, this.section, resource);
+		expected.setId(section.getId());
 
-		assertTrue(section.equals(this.section) && this.section.equals(section));
-		assertTrue(section.hashCode() == this.section.hashCode());
+		verifyEquality(expected, section);
 	}
 
 	@Test
 	public void sectionsShouldBeDifferentWhenIdIsNotEqual() {
-		final Section section = new Section(2L, null, null, null, null, this.section, resource);
-
-		assertFalse(section.equals(this.section) && this.section.equals(section));
-		assertTrue(section.hashCode() != this.section.hashCode());
+		verifyDifference(expected, section);
 	}
 
 	@Test
 	public void gettersShouldReturnPropertiesValues() {
-		final long id = 3L;
-		final String title = "foo";
-		final String description = "bar";
-		final int position = 2;
-		final String imgUri = "uri";
-
-		final Section section = new Section(id, title, description, position, imgUri, this.section, resource);
-
-		assertEquals(id, section.getId());
-		assertEquals(description, section.getDescription());
-		assertEquals(imgUri, section.getImgUri());
-		assertEquals(position, section.getPosition());
-		assertEquals(this.section, section.getPrerequisite());
-		assertEquals(resource, section.getResource());
-		assertEquals(title, section.getTitle());
+		compareProperties(expected, expected);
 	}
 
 	@Test
 	public void settersShouldSetProperties() {
-		final long id = 3L;
-		final String title = "foo";
-		final String description = "bar";
-		final int position = 2;
-		final String imgUri = "uri";
+		section.setId(expected.getId());
+		section.setDescription(expected.getDescription());
+		section.setImgUri(expected.getImgUri());
+		section.setPosition(expected.getPosition());
+		section.setPrerequisite(expected.getPrerequisite());
+		section.setResource(expected.getResource());
+		section.setTitle(expected.getTitle());
 
-		section.setId(id);
-		section.setDescription(description);
-		section.setImgUri(imgUri);
-		section.setPosition(position);
-		section.setPrerequisite(this.section);
-		section.setResource(resource);
-		section.setTitle(title);
+		compareProperties(expected, section);
+	}
 
-		assertEquals(id, section.getId());
-		assertEquals(description, section.getDescription());
-		assertEquals(imgUri, section.getImgUri());
-		assertEquals(position, section.getPosition());
-		assertEquals(this.section, section.getPrerequisite());
-		assertEquals(resource, section.getResource());
-		assertEquals(title, section.getTitle());
+	private void compareProperties(Section expected, Section actual) {
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getDescription(), actual.getDescription());
+		assertEquals(expected.getImgUri(), actual.getImgUri());
+		assertEquals(expected.getPosition(), actual.getPosition());
+		assertEquals(expected.getPrerequisite(), actual.getPrerequisite());
+		assertEquals(expected.getResource(), actual.getResource());
+		assertEquals(expected.getTitle(), actual.getTitle());
+	}
+
+	private void verifyEquality(Section expected, Section actual) {
+		assertTrue(expected.equals(actual) && actual.equals(expected));
+		assertTrue(expected.hashCode() == actual.hashCode());
+	}
+
+	private void verifyDifference(Section expected, Section actual) {
+		assertFalse(expected.equals(actual) && actual.equals(expected));
+		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 
 }

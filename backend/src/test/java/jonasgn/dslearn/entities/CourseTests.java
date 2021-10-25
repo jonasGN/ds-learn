@@ -2,6 +2,7 @@ package jonasgn.dslearn.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -14,6 +15,7 @@ import jonasgn.dslearn.factories.EntitiesFactory;
 public class CourseTests {
 
 	private Course course = EntitiesFactory.createCourse();
+	private Course expected = new Course(0L, "foo", "bar", "bar");
 
 	@Test
 	public void emptyConstructorShouldSetAllPropertiesToNull() {
@@ -27,63 +29,54 @@ public class CourseTests {
 
 	@Test
 	public void argsConstructorShouldSetAllProperties() {
-		final long id = 3L;
-		final String imgGrayUri = "gray_uri";
-		final String imgUri = "uri";
-		final String name = "foo";
-		final Course course = new Course(id, name, imgUri, imgGrayUri);
+		final Course c = expected;
+		final Course course = new Course(c.getId(), c.getName(), c.getImgUri(), c.getImgGrayUri());
 
-		assertEquals(id, course.getId());
-		assertEquals(imgGrayUri, course.getImgGrayUri());
-		assertEquals(imgUri, course.getImgUri());
-		assertEquals(name, course.getName());
+		compareProperties(c, course);
 	}
 
 	@Test
 	public void coursesShouldBeTheSameWhenIdIsEqual() {
-		final Course course = new Course(1L, "foo", "foo", "foo");
+		expected.setId(course.getId());
 
-		assertTrue(course.equals(this.course) && this.course.equals(course));
-		assertTrue(course.hashCode() == this.course.hashCode());
+		verifyEquality(expected, course);
 	}
 
 	@Test
 	public void coursesShouldBeDifferentWhenIdIsNotEqual() {
-		final Course course = new Course(2L, "foo", "foo", "foo");
-
-		assertFalse(course.equals(this.course) && this.course.equals(course));
-		assertTrue(course.hashCode() != this.course.hashCode());
+		verifyDifference(expected, course);
 	}
 
 	@Test
 	public void gettersShouldReturnPropertiesValues() {
-		final long id = 3L;
-		final String imgGrayUri = "gray_uri";
-		final String imgUri = "uri";
-		final String name = "foo";
-		final Course course = new Course(id, name, imgUri, imgGrayUri);
-
-		assertEquals(id, course.getId());
-		assertEquals(imgGrayUri, course.getImgGrayUri());
-		assertEquals(imgUri, course.getImgUri());
-		assertEquals(name, course.getName());
+		compareProperties(expected, expected);
 	}
 
 	@Test
 	public void setterShouldSetProperties() {
-		final long id = 3L;
-		final String imgGrayUri = "gray_uri";
-		final String imgUri = "uri";
-		final String name = "foo";
+		course.setId(expected.getId());
+		course.setImgGrayUri(expected.getImgGrayUri());
+		course.setImgUri(expected.getImgUri());
+		course.setName(expected.getName());
 
-		course.setId(id);
-		course.setImgGrayUri(imgGrayUri);
-		course.setImgUri(imgUri);
-		course.setName(name);
+		compareProperties(expected, course);
+	}
 
-		assertEquals(id, course.getId());
-		assertEquals(imgGrayUri, course.getImgGrayUri());
-		assertEquals(imgUri, course.getImgUri());
-		assertEquals(name, course.getName());
+	private void compareProperties(Course expected, Course actual) {
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getImgGrayUri(), actual.getImgGrayUri());
+		assertEquals(expected.getImgUri(), actual.getImgUri());
+		assertEquals(expected.getName(), actual.getName());
+		assertIterableEquals(expected.getOffers(), actual.getOffers());
+	}
+
+	private void verifyEquality(Course expected, Course actual) {
+		assertTrue(expected.equals(actual) && actual.equals(expected));
+		assertTrue(expected.hashCode() == actual.hashCode());
+	}
+
+	private void verifyDifference(Course expected, Course actual) {
+		assertFalse(expected.equals(actual) && actual.equals(expected));
+		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 }

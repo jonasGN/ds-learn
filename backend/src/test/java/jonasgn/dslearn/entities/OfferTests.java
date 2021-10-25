@@ -1,9 +1,6 @@
 package jonasgn.dslearn.entities;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.Instant;
 
@@ -16,6 +13,7 @@ import jonasgn.dslearn.factories.EntitiesFactory;
 public class OfferTests {
 
 	private Offer offer = EntitiesFactory.createOffer();
+	private Offer expected = new Offer(0L, "foo", Instant.now(), Instant.now(), new Course());
 
 	@Test
 	public void emptyConstructorShouldSetAllPropertiesToNull() {
@@ -30,70 +28,57 @@ public class OfferTests {
 
 	@Test
 	public void argsConstructorShouldSetAllProperties() {
-		final long id = 3L;
-		final Course course = EntitiesFactory.createCourse();
-		final String edition = "foo";
-		final Instant start = Instant.now();
-		final Instant end = Instant.now().plusSeconds(3600);
-		final Offer offer = new Offer(id, edition, start, end, course);
+		final Offer of = expected;
+		final Offer offer = new Offer(of.getId(), of.getEdition(), of.getStartMoment(), of.getEndMoment(),
+				of.getCourse());
 
-		assertEquals(id, offer.getId());
-		assertEquals(course, offer.getCourse());
-		assertEquals(edition, offer.getEdition());
-		assertEquals(start, offer.getStartMoment());
-		assertEquals(end, offer.getEndMoment());
+		compareProperties(of, offer);
 	}
 
 	@Test
 	public void offersShouldBeTheSameWhenIdIsEqual() {
-		final Offer offer = new Offer(1L, null, null, null, null);
+		expected.setId(offer.getId());
 
-		assertTrue(offer.equals(this.offer) && this.offer.equals(offer));
-		assertTrue(offer.hashCode() == this.offer.hashCode());
+		verifyEquality(expected, offer);
 	}
 
 	@Test
 	public void offersShouldBeDifferentWhenIdIsNotEqual() {
-		final Offer offer = new Offer(2L, null, null, null, null);
-
-		assertFalse(offer.equals(this.offer) && this.offer.equals(offer));
-		assertTrue(offer.hashCode() != this.offer.hashCode());
+		verifyDifference(expected, offer);
 	}
 
 	@Test
 	public void gettersShouldReturnPropertiesValues() {
-		final long id = 3L;
-		final Course course = EntitiesFactory.createCourse();
-		final String edition = "foo";
-		final Instant start = Instant.now();
-		final Instant end = Instant.now().plusSeconds(3600);
-		final Offer offer = new Offer(id, edition, start, end, course);
-
-		assertEquals(id, offer.getId());
-		assertEquals(course, offer.getCourse());
-		assertEquals(edition, offer.getEdition());
-		assertEquals(start, offer.getStartMoment());
-		assertEquals(end, offer.getEndMoment());
+		compareProperties(expected, expected);
 	}
 
 	@Test
 	public void setterShouldSetProperties() {
-		final long id = 3L;
-		final Course course = EntitiesFactory.createCourse();
-		final String edition = "foo";
-		final Instant start = Instant.now().plusSeconds(1);
-		final Instant end = Instant.now().plusSeconds(2);
+		offer.setId(expected.getId());
+		offer.setCourse(expected.getCourse());
+		offer.setEdition(expected.getEdition());
+		offer.setStartMoment(expected.getStartMoment());
+		offer.setEndMoment(expected.getEndMoment());
 
-		offer.setId(id);
-		offer.setCourse(course);
-		offer.setEdition(edition);
-		offer.setStartMoment(start);
-		offer.setEndMoment(end);
+		compareProperties(expected, offer);
+	}
 
-		assertEquals(id, offer.getId());
-		assertEquals(course, offer.getCourse());
-		assertEquals(edition, offer.getEdition());
-		assertEquals(start, offer.getStartMoment());
-		assertEquals(end, offer.getEndMoment());
+	private void compareProperties(Offer expected, Offer actual) {
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getCourse(), actual.getCourse());
+		assertEquals(expected.getEdition(), actual.getEdition());
+		assertEquals(expected.getEndMoment(), actual.getEndMoment());
+		assertIterableEquals(expected.getResources(), actual.getResources());
+		assertEquals(expected.getStartMoment(), actual.getStartMoment());
+	}
+
+	private void verifyEquality(Offer expected, Offer actual) {
+		assertTrue(expected.equals(actual) && actual.equals(expected));
+		assertTrue(expected.hashCode() == actual.hashCode());
+	}
+
+	private void verifyDifference(Offer expected, Offer actual) {
+		assertFalse(expected.equals(actual) && actual.equals(expected));
+		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 }

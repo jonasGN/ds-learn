@@ -17,6 +17,7 @@ import jonasgn.dslearn.factories.EntitiesFactory;
 public class UserTests {
 
 	private User user = EntitiesFactory.createUser();
+	private User expected = new User(0L, "foo", "bar", "foo");
 
 	@Test
 	public void emptyConstructorShouldSetAllPropertiesToNullAndRolesEmpty() {
@@ -31,64 +32,55 @@ public class UserTests {
 
 	@Test
 	public void argsConstructorShouldSetAllProperties() {
-		final long id = 3L;
-		final String name = "Foo";
-		final String email = "Bar";
-		final String password = "pass";
-		final User user = new User(id, name, email, password);
+		final User u = expected;
+		final User user = new User(u.getId(), u.getName(), u.getEmail(), u.getPassword());
 
-		assertEquals(id, user.getId());
-		assertEquals(name, user.getName());
-		assertEquals(email, user.getEmail());
-		assertEquals(password, user.getPassword());
+		compareProperties(u, user);
 	}
 
 	@Test
 	public void usersShouldBeTheSameWhenIdAndEmailIsEqual() {
-		final User user = new User(1L, null, "email", null);
+		expected.setId(user.getId());
+		expected.setEmail(user.getEmail());
 
-		assertTrue(user.equals(this.user) && this.user.equals(user));
-		assertTrue(user.hashCode() == this.user.hashCode());
+		verifyEquality(expected, user);
 	}
 
 	@Test
 	public void usersShouldBeDifferentWhenIdOrEmailIsNotEqual() {
-		final User user = new User(2L, null, "email", null);
-
-		assertFalse(user.equals(this.user) && this.user.equals(user));
-		assertTrue(user.hashCode() != this.user.hashCode());
+		verifyDifference(expected, user);
 	}
 
 	@Test
 	public void gettersShouldReturnPropertiesValues() {
-		final long id = 3L;
-		final String name = "Foo";
-		final String email = "Bar";
-		final String password = "pass";
-		final User user = new User(id, name, email, password);
-
-		assertEquals(id, user.getId());
-		assertEquals(name, user.getName());
-		assertEquals(email, user.getEmail());
-		assertEquals(password, user.getPassword());
-		assertEquals(new HashSet<Role>(), user.getRoles());
+		compareProperties(expected, expected);
 	}
 
 	@Test
 	public void setterShouldSetProperties() {
-		final long id = 3L;
-		final String name = "Foo";
-		final String email = "Bar";
-		final String password = "pass";
+		user.setId(expected.getId());
+		user.setEmail(expected.getEmail());
+		user.setName(expected.getName());
+		user.setPassword(expected.getPassword());
 
-		user.setId(id);
-		user.setEmail(email);
-		user.setName(name);
-		user.setPassword(password);
+		compareProperties(expected, user);
+	}
 
-		assertEquals(id, user.getId());
-		assertEquals(name, user.getName());
-		assertEquals(email, user.getEmail());
-		assertEquals(password, user.getPassword());
+	private void compareProperties(User expected, User actual) {
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getEmail(), actual.getEmail());
+		assertEquals(expected.getName(), actual.getName());
+		assertEquals(expected.getPassword(), actual.getPassword());
+		assertIterableEquals(expected.getRoles(), actual.getRoles());
+	}
+
+	private void verifyEquality(User expected, User actual) {
+		assertTrue(expected.equals(actual) && actual.equals(expected));
+		assertTrue(expected.hashCode() == actual.hashCode());
+	}
+
+	private void verifyDifference(User expected, User actual) {
+		assertFalse(expected.equals(actual) && actual.equals(expected));
+		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 }

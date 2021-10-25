@@ -2,6 +2,7 @@ package jonasgn.dslearn.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,7 +16,7 @@ import jonasgn.dslearn.factories.EntitiesFactory;
 public class ResourceTests {
 
 	private Resource resource = EntitiesFactory.createResource();
-	private Offer offer = EntitiesFactory.createOffer();
+	private Resource expected = new Resource(0L, "foo", "bar", 0, "foo", ResourceType.EXTERNAL_LINK, new Offer());
 
 	@Test
 	public void emptyConstructorShouldSetAllPropertiesToNull() {
@@ -32,84 +33,62 @@ public class ResourceTests {
 
 	@Test
 	public void argsConstructorShouldSetAllProperties() {
-		final long id = 3L;
-		final String title = "foo";
-		final String description = "bar";
-		final int position = 2;
-		final String imgUri = "uri";
-		final ResourceType type = ResourceType.EXTERNAL_LINK;
+		final Resource r = expected;
+		final Resource resource = new Resource(r.getId(), r.getTitle(), r.getDescription(), r.getPosition(),
+				r.getImgUri(), r.getType(), r.getOffer());
 
-		final Resource resource = new Resource(id, title, description, position, imgUri, type, offer);
-
-		assertEquals(id, resource.getId());
-		assertEquals(description, resource.getDescription());
-		assertEquals(imgUri, resource.getImgUri());
-		assertEquals(offer, resource.getOffer());
-		assertEquals(position, resource.getPosition());
-		assertEquals(title, resource.getTitle());
-		assertEquals(type, resource.getType());
+		compareProperties(r, resource);
 	}
 
 	@Test
 	public void resourcesShouldBeTheSameWhenIdIsEqual() {
-		final Resource resource = new Resource(1L, "foo", null, null, null, null, offer);
+		expected.setId(resource.getId());
 
-		assertTrue(resource.equals(this.resource) && this.resource.equals(resource));
-		assertTrue(resource.hashCode() == this.resource.hashCode());
+		verifyEquality(expected, resource);
 	}
 
 	@Test
 	public void resourcesShouldBeDifferentWhenIdIsNotEqual() {
-		final Resource resource = new Resource(2L, null, null, null, null, null, offer);
-
-		assertFalse(resource.equals(this.resource) && this.resource.equals(resource));
-		assertTrue(resource.hashCode() != this.resource.hashCode());
+		verifyDifference(expected, resource);
 	}
 
 	@Test
 	public void gettersShouldReturnPropertiesValues() {
-		final long id = 3L;
-		final String title = "foo";
-		final String description = "bar";
-		final int position = 2;
-		final String imgUri = "uri";
-		final ResourceType type = ResourceType.EXTERNAL_LINK;
-
-		final Resource resource = new Resource(id, title, description, position, imgUri, type, offer);
-
-		assertEquals(id, resource.getId());
-		assertEquals(description, resource.getDescription());
-		assertEquals(imgUri, resource.getImgUri());
-		assertEquals(offer, resource.getOffer());
-		assertEquals(position, resource.getPosition());
-		assertEquals(title, resource.getTitle());
-		assertEquals(type, resource.getType());
+		compareProperties(expected, expected);
 	}
 
 	@Test
 	public void settersShouldSetProperties() {
-		final long id = 3L;
-		final String title = "foo";
-		final String description = "bar";
-		final int position = 2;
-		final String imgUri = "uri";
-		final ResourceType type = ResourceType.EXTERNAL_LINK;
+		resource.setId(expected.getId());
+		resource.setDescription(expected.getDescription());
+		resource.setImgUri(expected.getImgUri());
+		resource.setOffer(expected.getOffer());
+		resource.setPosition(expected.getPosition());
+		resource.setTitle(expected.getTitle());
+		resource.setType(expected.getType());
 
-		resource.setId(id);
-		resource.setDescription(description);
-		resource.setImgUri(imgUri);
-		resource.setOffer(offer);
-		resource.setPosition(position);
-		resource.setTitle(title);
-		resource.setType(type);
+		compareProperties(expected, resource);
+	}
 
-		assertEquals(id, resource.getId());
-		assertEquals(description, resource.getDescription());
-		assertEquals(imgUri, resource.getImgUri());
-		assertEquals(offer, resource.getOffer());
-		assertEquals(position, resource.getPosition());
-		assertEquals(title, resource.getTitle());
-		assertEquals(type, resource.getType());
+	private void compareProperties(Resource expected, Resource actual) {
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getDescription(), actual.getDescription());
+		assertEquals(expected.getImgUri(), actual.getImgUri());
+		assertEquals(expected.getOffer(), actual.getOffer());
+		assertEquals(expected.getPosition(), actual.getPosition());
+		assertIterableEquals(expected.getSections(), actual.getSections());
+		assertEquals(expected.getTitle(), actual.getTitle());
+		assertEquals(expected.getType(), actual.getType());
+	}
+
+	private void verifyEquality(Resource expected, Resource actual) {
+		assertTrue(expected.equals(actual) && actual.equals(expected));
+		assertTrue(expected.hashCode() == actual.hashCode());
+	}
+
+	private void verifyDifference(Resource expected, Resource actual) {
+		assertFalse(expected.equals(actual) && actual.equals(expected));
+		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 
 }

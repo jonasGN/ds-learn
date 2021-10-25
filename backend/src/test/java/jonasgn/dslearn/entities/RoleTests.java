@@ -15,6 +15,7 @@ import jonasgn.dslearn.factories.EntitiesFactory;
 public class RoleTests {
 
 	private Role role = EntitiesFactory.createRole();
+	private Role expected = new Role(0L, Authority.STUDENT);
 
 	@Test
 	public void emptyConstructorShouldSetAllPropertiesToNull() {
@@ -26,48 +27,49 @@ public class RoleTests {
 
 	@Test
 	public void argsConstructorShouldSetAllProperties() {
-		final long id = 3L;
-		final Authority authority = Authority.ADMIN;
-		final Role role = new Role(id, authority);
+		final Role role = new Role(expected.getId(), Authority.of(expected.getAuthority()));
 
-		assertEquals(id, role.getId());
-		assertEquals(authority, Authority.of(role.getAuthority()));
+		compareProperties(expected, role);
 	}
 
 	@Test
 	public void rolesShouldBeTheSameWhenIdIsEqual() {
-		final Role role = new Role(1L, Authority.STUDENT);
+		expected.setId(role.getId());
 
-		assertTrue(role.equals(this.role) && this.role.equals(role));
-		assertTrue(role.hashCode() == this.role.hashCode());
+		verifyEquality(expected, role);
 	}
 
 	@Test
 	public void rolesShouldBeDifferentWhenIdIsNotEqual() {
-		final Role role = new Role(2L, Authority.ADMIN);
-
-		assertFalse(role.equals(this.role) && this.role.equals(role));
-		assertTrue(role.hashCode() != this.role.hashCode());
+		verifyDifference(expected, role);
 	}
 
 	@Test
 	public void gettersShouldReturnPropertiesValues() {
-		final String expected = "ADMIN";
-
-		assertEquals(1L, role.getId());
-		assertEquals(expected, role.getAuthority());
+		compareProperties(expected, expected);
 	}
 
 	@Test
 	public void setterShouldSetProperties() {
-		final long id = 3L;
-		final Authority authority = Authority.ADMIN;
+		role.setId(expected.getId());
+		role.setAuthority(Authority.of(expected.getAuthority()));
 
-		role.setId(id);
-		role.setAuthority(authority);
+		compareProperties(expected, role);
+	}
 
-		assertEquals(id, role.getId());
-		assertEquals(authority, Authority.of(role.getAuthority()));
+	private void compareProperties(Role expected, Role actual) {
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getAuthority(), actual.getAuthority());
+	}
+
+	private void verifyEquality(Role expected, Role actual) {
+		assertTrue(expected.equals(actual) && actual.equals(expected));
+		assertTrue(expected.hashCode() == actual.hashCode());
+	}
+
+	private void verifyDifference(Role expected, Role actual) {
+		assertFalse(expected.equals(actual) && actual.equals(expected));
+		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 
 }
