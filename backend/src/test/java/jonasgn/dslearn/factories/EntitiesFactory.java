@@ -4,9 +4,11 @@ import java.time.Instant;
 
 import jonasgn.dslearn.entities.Course;
 import jonasgn.dslearn.entities.Offer;
+import jonasgn.dslearn.entities.Resource;
 import jonasgn.dslearn.entities.Role;
 import jonasgn.dslearn.entities.User;
 import jonasgn.dslearn.entities.enums.Authority;
+import jonasgn.dslearn.entities.enums.ResourceType;
 
 public class EntitiesFactory {
 
@@ -24,5 +26,10 @@ public class EntitiesFactory {
 
 	public static Offer createOffer() {
 		return new Offer(1L, "edition", Instant.now(), Instant.now().plusSeconds(3600), createCourse());
+	}
+
+	public static Resource createResource() {
+		return new Resource(1L, "title", "description", 1, "img_uri", ResourceType.LESSON_ONLY, "external_link",
+				createOffer());
 	}
 }
