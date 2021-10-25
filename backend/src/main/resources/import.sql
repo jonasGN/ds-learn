@@ -13,3 +13,8 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 3);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (4, 3);
+
+INSERT INTO tb_course (name, img_uri, img_gray_uri) VALUES ('Spring React 1.0', 'https://spring-react-img', 'https://spring-react-img-gray');
+INSERT INTO tb_course (name, img_uri, img_gray_uri) VALUES ('Spring React 2.0', 'https://spring-react-img', 'https://spring-react-img-gray');
+INSERT INTO tb_course (name, img_uri, img_gray_uri) VALUES ('Spring React 3.0', 'https://spring-react-img', 'https://spring-react-img-gray');
+INSERT INTO tb_course (name, img_uri, img_gray_uri) VALUES ('Spring React Definitivo', 'https://spring-react-img', 'https://spring-react-img-gray');
