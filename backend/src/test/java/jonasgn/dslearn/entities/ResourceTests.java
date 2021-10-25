@@ -23,7 +23,6 @@ public class ResourceTests {
 
 		assertNull(resource.getId());
 		assertNull(resource.getDescription());
-		assertNull(resource.getExternalLink());
 		assertNull(resource.getImgUri());
 		assertNull(resource.getOffer());
 		assertNull(resource.getPosition());
@@ -39,13 +38,11 @@ public class ResourceTests {
 		final int position = 2;
 		final String imgUri = "uri";
 		final ResourceType type = ResourceType.EXTERNAL_LINK;
-		final String externalLink = "link";
 
-		final Resource resource = new Resource(id, title, description, position, imgUri, type, externalLink, offer);
+		final Resource resource = new Resource(id, title, description, position, imgUri, type, offer);
 
 		assertEquals(id, resource.getId());
 		assertEquals(description, resource.getDescription());
-		assertEquals(externalLink, resource.getExternalLink());
 		assertEquals(imgUri, resource.getImgUri());
 		assertEquals(offer, resource.getOffer());
 		assertEquals(position, resource.getPosition());
@@ -55,7 +52,7 @@ public class ResourceTests {
 
 	@Test
 	public void resourcesShouldBeTheSameWhenIdIsEqual() {
-		final Resource resource = new Resource(1L, "foo", null, null, null, null, null, offer);
+		final Resource resource = new Resource(1L, "foo", null, null, null, null, offer);
 
 		assertTrue(resource.equals(this.resource) && this.resource.equals(resource));
 		assertTrue(resource.hashCode() == this.resource.hashCode());
@@ -63,7 +60,7 @@ public class ResourceTests {
 
 	@Test
 	public void resourcesShouldBeDifferentWhenIdIsNotEqual() {
-		final Resource resource = new Resource(2L, null, null, null, null, null, null, offer);
+		final Resource resource = new Resource(2L, null, null, null, null, null, offer);
 
 		assertFalse(resource.equals(this.resource) && this.resource.equals(resource));
 		assertTrue(resource.hashCode() != this.resource.hashCode());
@@ -77,13 +74,11 @@ public class ResourceTests {
 		final int position = 2;
 		final String imgUri = "uri";
 		final ResourceType type = ResourceType.EXTERNAL_LINK;
-		final String externalLink = "link";
 
-		final Resource resource = new Resource(id, title, description, position, imgUri, type, externalLink, offer);
+		final Resource resource = new Resource(id, title, description, position, imgUri, type, offer);
 
 		assertEquals(id, resource.getId());
 		assertEquals(description, resource.getDescription());
-		assertEquals(externalLink, resource.getExternalLink());
 		assertEquals(imgUri, resource.getImgUri());
 		assertEquals(offer, resource.getOffer());
 		assertEquals(position, resource.getPosition());
@@ -99,11 +94,9 @@ public class ResourceTests {
 		final int position = 2;
 		final String imgUri = "uri";
 		final ResourceType type = ResourceType.EXTERNAL_LINK;
-		final String externalLink = "link";
 
 		resource.setId(id);
 		resource.setDescription(description);
-		resource.setExternalLink(externalLink);
 		resource.setImgUri(imgUri);
 		resource.setOffer(offer);
 		resource.setPosition(position);
@@ -112,7 +105,6 @@ public class ResourceTests {
 
 		assertEquals(id, resource.getId());
 		assertEquals(description, resource.getDescription());
-		assertEquals(externalLink, resource.getExternalLink());
 		assertEquals(imgUri, resource.getImgUri());
 		assertEquals(offer, resource.getOffer());
 		assertEquals(position, resource.getPosition());

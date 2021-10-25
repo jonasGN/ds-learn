@@ -6,6 +6,7 @@ import jonasgn.dslearn.entities.Course;
 import jonasgn.dslearn.entities.Offer;
 import jonasgn.dslearn.entities.Resource;
 import jonasgn.dslearn.entities.Role;
+import jonasgn.dslearn.entities.Section;
 import jonasgn.dslearn.entities.User;
 import jonasgn.dslearn.entities.enums.Authority;
 import jonasgn.dslearn.entities.enums.ResourceType;
@@ -29,7 +30,10 @@ public class EntitiesFactory {
 	}
 
 	public static Resource createResource() {
-		return new Resource(1L, "title", "description", 1, "img_uri", ResourceType.LESSON_ONLY, "external_link",
-				createOffer());
+		return new Resource(1L, "title", "description", 1, "img_uri", ResourceType.LESSON_ONLY, createOffer());
+	}
+
+	public static Section createSection() {
+		return new Section(1L, "title", "description", 1, "igm_uri", new Section(), createResource());
 	}
 }
