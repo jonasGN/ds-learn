@@ -31,7 +31,7 @@ public class EnrollmentTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final Enrollment e = expected;
 		final Enrollment enrollment = new Enrollment(e.getStudent(), e.getOffer(), e.getEnrollMoment(),
 				e.getRefundMoment(), e.isAvailable(), e.hasOnlyUpdates());
@@ -50,11 +50,6 @@ public class EnrollmentTests {
 	@Test
 	public void enrollmentsShouldBeDifferentWhenStudentAndOfferIsNotEqual() {
 		verifyDifference(expected, enrollment);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test

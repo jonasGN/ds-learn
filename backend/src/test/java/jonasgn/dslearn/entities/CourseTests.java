@@ -28,7 +28,7 @@ public class CourseTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final Course c = expected;
 		final Course course = new Course(c.getId(), c.getName(), c.getImgUri(), c.getImgGrayUri());
 
@@ -45,11 +45,6 @@ public class CourseTests {
 	@Test
 	public void coursesShouldBeDifferentWhenIdIsNotEqual() {
 		verifyDifference(expected, course);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test

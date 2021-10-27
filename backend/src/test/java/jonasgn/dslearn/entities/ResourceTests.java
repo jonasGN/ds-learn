@@ -32,7 +32,7 @@ public class ResourceTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final Resource r = expected;
 		final Resource resource = new Resource(r.getId(), r.getTitle(), r.getDescription(), r.getPosition(),
 				r.getImgUri(), r.getType(), r.getOffer());
@@ -50,11 +50,6 @@ public class ResourceTests {
 	@Test
 	public void resourcesShouldBeDifferentWhenIdIsNotEqual() {
 		verifyDifference(expected, resource);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test

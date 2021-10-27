@@ -26,7 +26,7 @@ public class RoleTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final Role role = new Role(expected.getId(), Authority.of(expected.getAuthority()));
 
 		compareProperties(expected, role);
@@ -42,11 +42,6 @@ public class RoleTests {
 	@Test
 	public void rolesShouldBeDifferentWhenIdIsNotEqual() {
 		verifyDifference(expected, role);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test

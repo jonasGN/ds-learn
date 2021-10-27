@@ -31,7 +31,7 @@ public class SectionTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final Section s = expected;
 		final Section section = new Section(s.getId(), s.getTitle(), s.getDescription(), s.getPosition(), s.getImgUri(),
 				s.getPrerequisite(), s.getResource());
@@ -49,11 +49,6 @@ public class SectionTests {
 	@Test
 	public void sectionsShouldBeDifferentWhenIdIsNotEqual() {
 		verifyDifference(expected, section);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test

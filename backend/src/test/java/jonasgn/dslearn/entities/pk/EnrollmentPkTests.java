@@ -33,7 +33,7 @@ public class EnrollmentPkTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final EnrollmentPK e = expected;
 		final EnrollmentPK pk = new EnrollmentPK(e.getStudent(), e.getOffer());
 
@@ -51,11 +51,6 @@ public class EnrollmentPkTests {
 	@Test
 	public void enrollmentsPkShouldBeDifferentWhenIdAndOfferIsNotEqual() {
 		verifyDifference(expected, pk);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test

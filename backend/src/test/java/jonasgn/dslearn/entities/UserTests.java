@@ -31,7 +31,7 @@ public class UserTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final User u = expected;
 		final User user = new User(u.getId(), u.getName(), u.getEmail(), u.getPassword());
 
@@ -49,11 +49,6 @@ public class UserTests {
 	@Test
 	public void usersShouldBeDifferentWhenIdOrEmailIsNotEqual() {
 		verifyDifference(expected, user);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test

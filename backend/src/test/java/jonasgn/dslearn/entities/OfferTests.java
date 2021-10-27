@@ -27,7 +27,7 @@ public class OfferTests {
 	}
 
 	@Test
-	public void argsConstructorShouldSetAllProperties() {
+	public void argsConstructorShouldSetAndGetterShouldRetriveAllProperties() {
 		final Offer of = expected;
 		final Offer offer = new Offer(of.getId(), of.getEdition(), of.getStartMoment(), of.getEndMoment(),
 				of.getCourse());
@@ -45,11 +45,6 @@ public class OfferTests {
 	@Test
 	public void offersShouldBeDifferentWhenIdIsNotEqual() {
 		verifyDifference(expected, offer);
-	}
-
-	@Test
-	public void gettersShouldReturnPropertiesValues() {
-		compareProperties(expected, expected);
 	}
 
 	@Test
