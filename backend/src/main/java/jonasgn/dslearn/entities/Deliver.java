@@ -45,13 +45,16 @@ public class Deliver implements Serializable {
 	public Deliver() {
 	}
 
-	public Deliver(Long id, String uri, Instant moment, DeliverStatus status, String feedback, Integer correctCount) {
+	public Deliver(Long id, String uri, Instant moment, DeliverStatus status, String feedback, Integer correctCount,
+			Enrollment enrollment, Lesson lesson) {
 		this.id = id;
 		this.uri = uri;
 		this.moment = moment;
 		this.status = status;
 		this.feedback = feedback;
 		this.correctCount = correctCount;
+		this.enrollment = enrollment;
+		this.lesson = lesson;
 	}
 
 	public Long getId() {
@@ -100,6 +103,22 @@ public class Deliver implements Serializable {
 
 	public void setCorrectCount(Integer correctCount) {
 		this.correctCount = correctCount;
+	}
+
+	public Enrollment getEnrollment() {
+		return enrollment;
+	}
+
+	public void setEnrollment(Enrollment enrollment) {
+		this.enrollment = enrollment;
+	}
+
+	public Lesson getLesson() {
+		return lesson;
+	}
+
+	public void setLesson(Lesson lesson) {
+		this.lesson = lesson;
 	}
 
 	@Override
