@@ -1,19 +1,18 @@
 package jonasgn.dslearn.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import jonasgn.dslearn.entities.enums.ResourceType;
+import jonasgn.dslearn.entities.generics.EntityTests;
 import jonasgn.dslearn.factories.EntitiesFactory;
 
 @DisplayName("Resource entity tests")
-public class ResourceTests {
+public class ResourceTests implements EntityTests<Resource> {
 
 	private Resource resource = EntitiesFactory.createResource();
 	private Resource expected = new Resource(0L, "foo", "bar", 0, "foo", ResourceType.EXTERNAL_LINK, new Offer());
@@ -74,16 +73,6 @@ public class ResourceTests {
 		assertIterableEquals(expected.getSections(), actual.getSections());
 		assertEquals(expected.getTitle(), actual.getTitle());
 		assertEquals(expected.getType(), actual.getType());
-	}
-
-	private void verifyEquality(Resource expected, Resource actual) {
-		assertTrue(expected.equals(actual) && actual.equals(expected));
-		assertTrue(expected.hashCode() == actual.hashCode());
-	}
-
-	private void verifyDifference(Resource expected, Resource actual) {
-		assertFalse(expected.equals(actual) && actual.equals(expected));
-		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 
 }

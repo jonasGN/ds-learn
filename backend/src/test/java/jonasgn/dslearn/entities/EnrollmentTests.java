@@ -1,16 +1,19 @@
 package jonasgn.dslearn.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.Instant;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import jonasgn.dslearn.entities.generics.EntityTests;
 import jonasgn.dslearn.factories.EntitiesFactory;
 
 @DisplayName("Enrollment entity tests")
-public class EnrollmentTests {
+public class EnrollmentTests implements EntityTests<Enrollment> {
 
 	private User user = new User(0L, "foo", "bar", "foo");
 	private Offer offer = new Offer(0L, "foo", Instant.now(), Instant.now().plusSeconds(1), new Course());
@@ -71,16 +74,6 @@ public class EnrollmentTests {
 		assertEquals(expected.getRefundMoment(), actual.getRefundMoment());
 		assertEquals(expected.isAvailable(), actual.isAvailable());
 		assertEquals(expected.hasOnlyUpdates(), actual.hasOnlyUpdates());
-	}
-
-	private void verifyEquality(Enrollment expected, Enrollment actual) {
-		assertTrue(expected.equals(actual) && actual.equals(expected));
-		assertTrue(expected.hashCode() == actual.hashCode());
-	}
-
-	private void verifyDifference(Enrollment expected, Enrollment actual) {
-		assertFalse(expected.equals(actual) && actual.equals(expected));
-		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 
 }

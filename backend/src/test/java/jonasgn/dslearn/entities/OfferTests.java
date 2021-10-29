@@ -1,16 +1,19 @@
 package jonasgn.dslearn.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.Instant;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import jonasgn.dslearn.entities.generics.EntityTests;
 import jonasgn.dslearn.factories.EntitiesFactory;
 
 @DisplayName("Offer entity tests")
-public class OfferTests {
+public class OfferTests implements EntityTests<Offer> {
 
 	private Offer offer = EntitiesFactory.createOffer();
 	private Offer expected = new Offer(0L, "foo", Instant.now(), Instant.now(), new Course());
@@ -67,13 +70,4 @@ public class OfferTests {
 		assertEquals(expected.getStartMoment(), actual.getStartMoment());
 	}
 
-	private void verifyEquality(Offer expected, Offer actual) {
-		assertTrue(expected.equals(actual) && actual.equals(expected));
-		assertTrue(expected.hashCode() == actual.hashCode());
-	}
-
-	private void verifyDifference(Offer expected, Offer actual) {
-		assertFalse(expected.equals(actual) && actual.equals(expected));
-		assertFalse(expected.hashCode() == actual.hashCode());
-	}
 }

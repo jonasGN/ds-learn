@@ -1,17 +1,16 @@
 package jonasgn.dslearn.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import jonasgn.dslearn.entities.generics.EntityTests;
 import jonasgn.dslearn.factories.EntitiesFactory;
 
 @DisplayName("Section entity tests")
-public class SectionTests {
+public class SectionTests implements EntityTests<Section> {
 
 	private Resource resource = EntitiesFactory.createResource();
 	private Section section = EntitiesFactory.createSection();
@@ -72,16 +71,6 @@ public class SectionTests {
 		assertEquals(expected.getPrerequisite(), actual.getPrerequisite());
 		assertEquals(expected.getResource(), actual.getResource());
 		assertEquals(expected.getTitle(), actual.getTitle());
-	}
-
-	private void verifyEquality(Section expected, Section actual) {
-		assertTrue(expected.equals(actual) && actual.equals(expected));
-		assertTrue(expected.hashCode() == actual.hashCode());
-	}
-
-	private void verifyDifference(Section expected, Section actual) {
-		assertFalse(expected.equals(actual) && actual.equals(expected));
-		assertFalse(expected.hashCode() == actual.hashCode());
 	}
 
 }
