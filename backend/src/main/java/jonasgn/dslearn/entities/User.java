@@ -21,6 +21,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jonasgn.dslearn.entities.generics.BaseEntity;
+import jonasgn.dslearn.extensions.StringExtension;
 
 @Entity
 @Table(name = "tb_user")
@@ -46,8 +47,8 @@ public class User extends BaseEntity implements UserDetails {
 
 	public User(Long id, String name, String email, String password) {
 		super(id);
-		this.name = name;
-		this.email = email;
+		setName(name);
+		setEmail(email);
 		this.password = password;
 	}
 
@@ -56,7 +57,7 @@ public class User extends BaseEntity implements UserDetails {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = StringExtension.toFormalName(name);
 	}
 
 	public String getEmail() {
@@ -64,7 +65,7 @@ public class User extends BaseEntity implements UserDetails {
 	}
 
 	public void setEmail(String email) {
-		this.email = email;
+		this.email = email.trim().toLowerCase();
 	}
 
 	public String getPassword() {

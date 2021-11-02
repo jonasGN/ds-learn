@@ -59,6 +59,26 @@ public class UserTests implements EntityTests<User> {
 		compareProperties(expected, user);
 	}
 
+	@Test
+	public void setEmailShouldReturnEmailInLowerCase() {
+		final String input = " EMail.mesSY_123@email.com 	  ";
+		final String output = "email.messy_123@email.com";
+
+		user.setEmail(input);
+
+		assertEquals(output, user.getEmail());
+	}
+
+	@Test
+	public void setNameShouldRemoveNonAlphabeticalCharsAndFormatName() {
+		final String input = " ()))     jùlIA GonÇalves *777-=.;/,  maRAnhÃo  Águamânsa  **??   â^[[]}{`'\"";
+		final String output = "Júlia Gonçalves Maranhão Águamânsa";
+
+		user.setName(input);
+
+		assertEquals(output, user.getName());
+	}
+
 	private void compareProperties(User expected, User actual) {
 		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getEmail(), actual.getEmail());
