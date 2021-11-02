@@ -50,7 +50,7 @@ public class Topic implements Serializable {
 	private Lesson lesson;
 
 	@ManyToOne
-	@JoinTable(name = "reply_id")
+	@JoinColumn(name = "reply_id")
 	private Reply answer;
 
 	@ManyToMany

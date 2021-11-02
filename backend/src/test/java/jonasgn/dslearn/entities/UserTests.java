@@ -38,15 +38,14 @@ public class UserTests implements EntityTests<User> {
 	}
 
 	@Test
-	public void usersShouldBeTheSameWhenIdAndEmailIsEqual() {
+	public void usersShouldBeTheSameWhenIdIsEqual() {
 		expected.setId(user.getId());
-		expected.setEmail(user.getEmail());
 
 		verifyEquality(expected, user);
 	}
 
 	@Test
-	public void usersShouldBeDifferentWhenIdOrEmailIsNotEqual() {
+	public void usersShouldBeDifferentWhenIdIsNotEqual() {
 		verifyDifference(expected, user);
 	}
 
