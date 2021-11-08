@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 public enum Authority {
 
-	ADMIN("ADMIN"), STUDENT("STUDENT");
+	ADMIN("ROLE_ADMIN"), STUDENT("ROLE_STUDENT");
 
 	private String role;
 

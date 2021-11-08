@@ -20,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jonasgn.dslearn.entities.enums.Authority;
 import jonasgn.dslearn.entities.generics.BaseEntity;
 import jonasgn.dslearn.extensions.StringExtension;
 
@@ -114,4 +115,11 @@ public class User extends BaseEntity implements UserDetails {
 		return true;
 	}
 
+	public boolean hasHole(Authority authority) {
+		for (Role role : roles) {
+			if (role.getAuthority().equals(authority.getRole()))
+				return true;
+		}
+		return false;
+	}
 }
