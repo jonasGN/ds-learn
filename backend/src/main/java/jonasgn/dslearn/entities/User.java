@@ -115,7 +115,7 @@ public class User extends BaseEntity implements UserDetails {
 		return true;
 	}
 
-	public boolean hasHole(Authority authority) {
+	public boolean hasRole(Authority authority) {
 		for (Role role : roles) {
 			if (role.getAuthority().equals(authority.getRole()))
 				return true;

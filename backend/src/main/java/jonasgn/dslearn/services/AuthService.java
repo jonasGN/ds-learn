@@ -33,7 +33,7 @@ public class AuthService {
 	public void validateSelfOrAdmin(Long userId) {
 		final User user = getAuthenticatedUser();
 
-		if (!user.getId().equals(userId) && !user.hasHole(Authority.ADMIN)) {
+		if (!user.getId().equals(userId) && !user.hasRole(Authority.ADMIN)) {
 			throw new ForbiddenException();
 		}
 	}
